@@ -2,6 +2,7 @@ package edu.hawaii.jmotif.isax;
 
 import java.util.ArrayList;
 import edu.hawaii.jmotif.sax.SAXException;
+import edu.hawaii.jmotif.sax.TSProcessor;
 import edu.hawaii.jmotif.sax.alphabet.Alphabet;
 import edu.hawaii.jmotif.sax.alphabet.NormalAlphabet;
 
@@ -28,26 +29,21 @@ class SAXBreakpoints {
 
 public class ISAXUtils {
 
+  private static TSProcessor tp = new TSProcessor();
+
   /**
    * Creates a Timeseries of length len; typically used in Unit Tests.
    * 
    * @param len Length of new timeseries
    * @return the Timeseries generated
    */
-  public static Timeseries generateRandomTS(int len) {
-
-    Timeseries ts = new Timeseries();
-
-    for (int x = 0; x < len; x++) {
-
+  public static double[] generateRandomTS(int len) {
+    double[] res = new double[len];
+    for (int i = 0; i < len; i++) {
       int r = (int) (Math.random() * 100) % 10;
-
-      ts.add(new TPoint(r, x));
-
+      res[i] = r;
     }
-
-    return ts;
-
+    return res;
   }
 
   /**
@@ -57,28 +53,28 @@ public class ISAXUtils {
    * @param base_cardinality
    * @param word_length
    * @return
-   * @throws TSException
+   * @throws Exception
    */
-  public static Sequence CreateiSAXSequence(Timeseries ts, int base_cardinality, int word_length)
-      throws TSException {
+  public static Sequence CreateiSAXSequence(double[] ts, int base_cardinality, int word_length)
+      throws Exception {
 
     // create SAX representation
     NormalAlphabet alphabet = new NormalAlphabet();
     int paaSize = word_length;
 
-    Timeseries PAA;
+    double[] PAA;
     try {
-      PAA = TSUtils.paa(TSUtils.zNormalize(ts), paaSize);
+      PAA = tp.paa(ts, paaSize);
     }
     catch (CloneNotSupportedException e) {
-      throw new TSException("Unable to clone: "); // + StackTrace.toString(e));
+      throw new Exception("Unable to clone: "); // + StackTrace.toString(e));
     }
 
-    Sequence iSAX = new Sequence(ts.size());
+    Sequence iSAX = new Sequence(ts.length);
 
     // transpose into numeric iSAX representation
 
-    int[] arCuts = TSUtils.ts2Index(PAA, alphabet, base_cardinality);
+    int[] arCuts = tp.ts2Index(PAA, alphabet, base_cardinality);
 
     for (int x = 0; x < arCuts.length; x++) {
       iSAX.getSymbols().add(new Symbol(arCuts[x], base_cardinality));
@@ -95,8 +91,8 @@ public class ISAXUtils {
    * @param ts
    * @return
    */
-  public static Sequence CreateiSAXSequenceBasedOnCardinality(Timeseries ts, Sequence seq)
-      throws TSException {
+  public static Sequence CreateiSAXSequenceBasedOnCardinality(double[] ts, Sequence seq)
+      throws Exception {
 
     // create SAX representation
     NormalAlphabet alphabet = new NormalAlphabet();
@@ -108,7 +104,7 @@ public class ISAXUtils {
       PAA = TSUtils.paa(TSUtils.zNormalize(ts), paaSize);
     }
     catch (CloneNotSupportedException e) {
-      throw new TSException("Unable to clone: "); // + StackTrace.toString(e));
+      throw new Exception("Unable to clone: "); // + StackTrace.toString(e));
     }
 
     Sequence iSAX = new Sequence(ts.size());
@@ -134,8 +130,8 @@ public class ISAXUtils {
    * @param ts
    * @return
    */
-  public static Sequence CreateiSAXSequenceBasedOnCardinality(Timeseries ts,
-      ArrayList<Integer> arCards) throws TSException {
+  public static Sequence CreateiSAXSequenceBasedOnCardinality(double[] ts,
+      ArrayList<Integer> arCards) throws Exception {
 
     // create SAX representation
     NormalAlphabet alphabet = new NormalAlphabet();
@@ -147,7 +143,7 @@ public class ISAXUtils {
       PAA = TSUtils.paa(TSUtils.zNormalize(ts), paaSize);
     }
     catch (CloneNotSupportedException e) {
-      throw new TSException("Unable to clone: "); // + StackTrace.toString(e));
+      throw new Exception("Unable to clone: "); // + StackTrace.toString(e));
     }
 
     Sequence iSAX = new Sequence(ts.size());
@@ -162,7 +158,7 @@ public class ISAXUtils {
         iSAX.getSymbols().add(new Symbol(arCuts[x], arCards.get(x)));
       }
     }
-    catch (TSException e) {
+    catch (Exception e) {
       iSAX = null;
       System.out.println("Failed to build SAX for card: " + arCards);
     }
@@ -179,10 +175,10 @@ public class ISAXUtils {
    * @param base_cardinality
    * @param word_length
    * @return
-   * @throws TSException
+   * @throws Exception
    */
   public static Sequence CreateiSAXSequenceFromDNA(String dna_segment, int base_cardinality,
-      int word_length) throws TSException {
+      int word_length) throws Exception {
 
     /*
      * For i = 1 to length(DNAstring) If DNAstringi = A, then Ti+1 = Ti + 2 If DNAstringi = G, then
@@ -221,7 +217,7 @@ public class ISAXUtils {
       PAA = TSUtils.paa(TSUtils.zNormalize(ts_dna), paaSize);
     }
     catch (CloneNotSupportedException e) {
-      throw new TSException("Unable to clone: "); // + StackTrace.toString(e));
+      throw new Exception("Unable to clone: "); // + StackTrace.toString(e));
     }
     Sequence iSAX = new Sequence(dna_scrubbed.length());
 
@@ -244,9 +240,9 @@ public class ISAXUtils {
    * 
    * @param dna_segment
    * @return
-   * @throws TSException
+   * @throws Exception
    */
-  public static Timeseries CreateTimeseriesFromDNA(String dna_segment) throws TSException {
+  public static Timeseries CreateTimeseriesFromDNA(String dna_segment) throws Exception {
 
     Timeseries ts_dna = new Timeseries();
 
@@ -273,7 +269,7 @@ public class ISAXUtils {
 
   }
 
-  public static String CreateDNAFromTimeseries(Timeseries ts_dna) throws TSException {
+  public static String CreateDNAFromTimeseries(Timeseries ts_dna) throws Exception {
 
     // Timeseries ts_dna = new Timeseries();
 
@@ -385,7 +381,7 @@ public class ISAXUtils {
     try {
       PAA = TSUtils.paa(TSUtils.zNormalize(ts), paaSize);
     }
-    catch (TSException e) {
+    catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
@@ -413,7 +409,7 @@ public class ISAXUtils {
     /*
      * 
      * public static char[] ts2String(Timeseries paa, Alphabet alphabet, int alphabetSize) throws
-     * TSException { double[] cuts = alphabet.getCuts(alphabetSize); char[] res = new
+     * Exception { double[] cuts = alphabet.getCuts(alphabetSize); char[] res = new
      * char[paa.size()]; for (int i = 0; i < paa.size(); i++) { res[i] =
      * num2char(paa.elementAt(i).value(), cuts); } return res; }
      */
@@ -442,7 +438,7 @@ public class ISAXUtils {
          * System.out.println( "[end] " );
          */
       }
-      catch (TSException e1) {
+      catch (Exception e1) {
         // TODO Auto-generated catch block
         e1.printStackTrace();
       }
@@ -450,7 +446,7 @@ public class ISAXUtils {
       try {
         cuts = alphabet.getCuts(iSAX.getSymbols().get(x).cardinality);
       }
-      catch (TSException e) {
+      catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }

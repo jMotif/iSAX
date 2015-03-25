@@ -1,6 +1,7 @@
 package edu.hawaii.jmotif.isax;
 
 import java.util.ArrayList;
+import org.junit.Test;
 import edu.hawaii.jmotif.isax.index.IndexHashParams;
 import edu.hawaii.jmotif.sax.SAXException;
 
@@ -12,15 +13,7 @@ public class TestISAXUtils {
   @Test
   public void testTStoISAXdecomp() {
 
-    Timeseries ts = new Timeseries();
-    ts.add(new TPoint(-1.0, 0));
-    ts.add(new TPoint(-0.5, 1));
-    ts.add(new TPoint(-0.25, 2));
-    ts.add(new TPoint(0.0, 3));
-    ts.add(new TPoint(0.25, 4));
-    ts.add(new TPoint(0.50, 5));
-    ts.add(new TPoint(0.75, 6));
-    ts.add(new TPoint(1.0, 7));
+    double ts[] = { -1.0, -0.5, -0.25, 0.0, 0.25, 0.50, 0.75, 1.0 };
 
     // setup the test timeseries, based on a known sequence (paper)
 

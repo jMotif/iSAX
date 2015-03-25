@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import edu.hawaii.jmotif.isax.ISAXUtils;
 import edu.hawaii.jmotif.isax.Sequence;
-import edu.hawaii.jmotif.timeseries.TPoint;
-import edu.hawaii.jmotif.timeseries.TSException;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 public class TestTerminalNode {
 

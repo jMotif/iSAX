@@ -3,7 +3,6 @@ package edu.hawaii.jmotif.isax.index;
 import java.util.HashMap;
 import java.util.Iterator;
 import edu.hawaii.jmotif.isax.Sequence;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 /**
  * Base class for iSAX hash tree
@@ -88,7 +87,7 @@ public abstract class AbstractNode {
    * @param ts
    * @return
    */
-  public TimeseriesInstance ApproxSearch(Timeseries ts) {
+  public TimeseriesInstance ApproxSearch(double[] ts) {
 
     return null;
 

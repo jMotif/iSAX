@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import edu.hawaii.jmotif.isax.ISAXUtils;
 import edu.hawaii.jmotif.isax.Sequence;
-import edu.hawaii.jmotif.timeseries.TSException;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 /**
  * 
@@ -121,7 +119,7 @@ public class InternalNode extends AbstractNode {
         ts_isax = ISAXUtils.CreateiSAXSequence(ts_inst.getTS(), this.params.base_card,
             this.params.isax_word_length);
       }
-      catch (TSException e) {
+      catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
@@ -144,7 +142,7 @@ public class InternalNode extends AbstractNode {
         ts_isax = ISAXUtils.CreateiSAXSequenceBasedOnCardinality(ts_inst.getTS(), arCards);
 
       }
-      catch (TSException e) {
+      catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
@@ -269,7 +267,7 @@ public class InternalNode extends AbstractNode {
    * 
    */
   @Override
-  public TimeseriesInstance ApproxSearch(Timeseries ts) {
+  public TimeseriesInstance ApproxSearch(double[] ts) {
 
     Sequence ts_isax = null;
 
@@ -283,7 +281,7 @@ public class InternalNode extends AbstractNode {
         ts_isax = ISAXUtils.CreateiSAXSequence(ts, this.params.base_card,
             this.params.isax_word_length);
       }
-      catch (TSException e) {
+      catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
@@ -296,7 +294,7 @@ public class InternalNode extends AbstractNode {
       try {
         ts_isax = ISAXUtils.CreateiSAXSequenceBasedOnCardinality(ts, arCards);
       }
-      catch (TSException e) {
+      catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }

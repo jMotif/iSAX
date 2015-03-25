@@ -7,8 +7,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import edu.hawaii.jmotif.distance.EuclideanDistance;
-import edu.hawaii.jmotif.timeseries.TSException;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 /**
  * 
@@ -26,8 +24,8 @@ public class TimeseriesInstance implements Cloneable, Comparable<TimeseriesInsta
    *
    */
   private static final long serialVersionUID = 1L;
-  private Timeseries ts; // representative of this instance
-  private Timeseries ts_compareTo_BaseRef;
+  private double[] ts; // representative of this instance
+  private double[] ts_compareTo_BaseRef;
 
   private HashMap<String, Long> hmOccurences = new HashMap<String, Long>();
 
@@ -36,7 +34,7 @@ public class TimeseriesInstance implements Cloneable, Comparable<TimeseriesInsta
    * 
    * @param ts the Timeseries object that represents this class
    */
-  public TimeseriesInstance(Timeseries ts) {
+  public TimeseriesInstance(double[] ts) {
 
     this.ts = ts;
     this.ts_compareTo_BaseRef = null;
@@ -95,7 +93,7 @@ public class TimeseriesInstance implements Cloneable, Comparable<TimeseriesInsta
    * 
    * @return
    */
-  public Timeseries getTS() {
+  public double[] getTS() {
     return this.ts;
   }
 
@@ -175,7 +173,7 @@ public class TimeseriesInstance implements Cloneable, Comparable<TimeseriesInsta
    * - this is only used for compareTo(), which is used by the heap to sort
    * 
    */
-  public void setComparableReferencePoint(Timeseries ts_base) {
+  public void setComparableReferencePoint(double[] ts_base) {
 
     this.ts_compareTo_BaseRef = ts_base;
 
@@ -194,12 +192,10 @@ public class TimeseriesInstance implements Cloneable, Comparable<TimeseriesInsta
     double other_dist = 0;
 
     try {
-      my_dist = EuclideanDistance.seriesDistance(this.ts.values(),
-          this.ts_compareTo_BaseRef.values());
-      other_dist = EuclideanDistance.seriesDistance(other.ts.values(),
-          this.ts_compareTo_BaseRef.values());
+      my_dist = EuclideanDistance.seriesDistance(ts, this.ts_compareTo_BaseRef);
+      other_dist = EuclideanDistance.seriesDistance(other.ts, this.ts_compareTo_BaseRef);
     }
-    catch (TSException e) {
+    catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }

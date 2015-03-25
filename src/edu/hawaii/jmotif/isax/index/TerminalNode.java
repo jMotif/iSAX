@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import edu.hawaii.jmotif.isax.ISAXUtils;
 import edu.hawaii.jmotif.isax.Sequence;
-import edu.hawaii.jmotif.timeseries.TSException;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 /**
  * A TerminalNode is the leaf node of an isax index. It contains TimeseriesInstance entries which
@@ -108,7 +106,7 @@ public class TerminalNode extends AbstractNode {
       // lets get our SAX word based on the params of this node and its key
       ts_isax = ISAXUtils.CreateiSAXSequenceBasedOnCardinality(ts_inst.getTS(), this.key);
     }
-    catch (TSException e) {
+    catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
@@ -171,7 +169,7 @@ public class TerminalNode extends AbstractNode {
    * 
    */
   @Override
-  public TimeseriesInstance ApproxSearch(Timeseries ts) {
+  public TimeseriesInstance ApproxSearch(double[] ts) {
 
     Sequence ts_isax = null;
 
@@ -181,7 +179,7 @@ public class TerminalNode extends AbstractNode {
     try {
       ts_isax = ISAXUtils.CreateiSAXSequenceBasedOnCardinality(ts, arCards);
     }
-    catch (TSException e) {
+    catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }

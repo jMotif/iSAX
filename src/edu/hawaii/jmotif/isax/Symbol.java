@@ -32,7 +32,7 @@ public class Symbol implements Cloneable, Comparable<Symbol> {
   private static final Level LOGGING_LEVEL = Level.INFO;
 
   static {
-    consoleLogger = (Logger) LoggerFactory.getLogger(SAXFactory.class);
+    consoleLogger = (Logger) LoggerFactory.getLogger(Symbol.class);
     consoleLogger.setLevel(LOGGING_LEVEL);
   }
 
@@ -119,7 +119,7 @@ public class Symbol implements Cloneable, Comparable<Symbol> {
       // we have to pull a new distance table per symbol
       distanceMatrix = alphabet.getDistanceMatrix(other.cardinality);
     }
-    catch (TSException e) {
+    catch (Exception e) {
       throw new SAXException("Exception thrown in isax symbol: " + StackTrace.toString(e));
     }
 

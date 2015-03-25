@@ -1,5 +1,8 @@
 package edu.hawaii.jmotif.isax;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 import edu.hawaii.jmotif.sax.SAXException;
 
 /**

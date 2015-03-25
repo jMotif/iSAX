@@ -125,7 +125,7 @@ public class Sequence implements Iterable<Symbol>, Cloneable {
         // we have to pull a new distance table per symbol
         distanceMatrix = alphabet.getDistanceMatrix(a.cardinality);
       }
-      catch (TSException e) {
+      catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
@@ -174,7 +174,7 @@ public class Sequence implements Iterable<Symbol>, Cloneable {
         // we have to pull a new distance table per symbol
         distanceMatrix = alphabet.getDistanceMatrix(a.cardinality);
       }
-      catch (TSException e) {
+      catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }

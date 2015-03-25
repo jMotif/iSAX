@@ -2,8 +2,6 @@ package edu.hawaii.jmotif.isax.index;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import edu.hawaii.jmotif.timeseries.TPoint;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 public class TestkNNSearchResults {
 

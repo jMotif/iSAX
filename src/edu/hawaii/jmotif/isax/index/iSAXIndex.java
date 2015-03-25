@@ -2,8 +2,6 @@ package edu.hawaii.jmotif.isax.index;
 
 import edu.hawaii.jmotif.isax.ISAXUtils;
 import edu.hawaii.jmotif.isax.Sequence;
-import edu.hawaii.jmotif.timeseries.TSException;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 /**
  * Implements iSAX indexing

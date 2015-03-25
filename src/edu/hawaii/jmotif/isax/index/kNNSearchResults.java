@@ -2,9 +2,6 @@ package edu.hawaii.jmotif.isax.index;
 
 import java.util.Iterator;
 import java.util.TreeSet;
-import edu.hawaii.jmotif.distance.EuclideanDistance;
-import edu.hawaii.jmotif.timeseries.TSException;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 /**
  * Ideally we want these sorted by distance to a reference point

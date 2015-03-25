@@ -2,23 +2,13 @@ package edu.hawaii.jmotif.isax.index;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import edu.hawaii.jmotif.timeseries.TPoint;
-import edu.hawaii.jmotif.timeseries.Timeseries;
 
 public class TestTimeseriesInstance {
 
   @Test
   public void testAddOccurences() {
 
-    Timeseries ts = new Timeseries();
-    ts.add(new TPoint(1.0, 0));
-    ts.add(new TPoint(-0.5, 1));
-    ts.add(new TPoint(0.25, 2));
-    ts.add(new TPoint(0.0, 3));
-    ts.add(new TPoint(0.25, 4));
-    ts.add(new TPoint(0.50, 5));
-    ts.add(new TPoint(0.75, 6));
-    ts.add(new TPoint(0.0, 7));
+    double[] ts = { 1.0, -0.5, 0.25, 0.0, 0.25, 0.50, 0.75, 0.0 };
 
     TimeseriesInstance tsi = new TimeseriesInstance(ts);
 
@@ -27,15 +17,7 @@ public class TestTimeseriesInstance {
 
     assertEquals("occurences test", tsi.getOccurences().size(), 2);
 
-    Timeseries ts2 = new Timeseries();
-    ts2.add(new TPoint(1.0, 0));
-    ts2.add(new TPoint(-0.5, 1));
-    ts2.add(new TPoint(0.25, 2));
-    ts2.add(new TPoint(0.0, 3));
-    ts2.add(new TPoint(0.25, 4));
-    ts2.add(new TPoint(0.50, 5));
-    ts2.add(new TPoint(0.75, 6));
-    ts2.add(new TPoint(0.0, 7));
+    double[] ts2 = { 1.0, -0.5, 0.25, 0.0, 0.25, 0.50, 0.75, 0.0 };
 
     TimeseriesInstance tsi2 = new TimeseriesInstance(ts2);
 
@@ -51,21 +33,15 @@ public class TestTimeseriesInstance {
   @Test
   public void testEquals() {
 
-    Timeseries ts1 = new Timeseries();
-    ts1.add(new TPoint(1.0, 0));
-    ts1.add(new TPoint(0.0, 1));
+    double[] ts1 = { 1.0, 0.0 };
 
     TimeseriesInstance A = new TimeseriesInstance(ts1);
 
-    Timeseries ts2 = new Timeseries();
-    ts2.add(new TPoint(1.0, 0));
-    ts2.add(new TPoint(0.0, 1));
+    double[] ts2 = { 1.0, 0.0 };
 
     TimeseriesInstance B = new TimeseriesInstance(ts2);
 
-    Timeseries ts3 = new Timeseries();
-    ts3.add(new TPoint(1.0, 0));
-    ts3.add(new TPoint(1.0, 1));
+    double[] ts3 = { 1.0, 1.0 };
 
     TimeseriesInstance C = new TimeseriesInstance(ts3);
 
@@ -80,21 +56,15 @@ public class TestTimeseriesInstance {
 
     // System.out.println("\n\n------ testCompareTo() --------");
 
-    Timeseries ts1 = new Timeseries();
-    ts1.add(new TPoint(1.0, 0));
-    ts1.add(new TPoint(0.0, 1));
+    double[] ts1 = { 1.0, 0.0 };
 
     TimeseriesInstance A = new TimeseriesInstance(ts1);
 
-    Timeseries ts2 = new Timeseries();
-    ts2.add(new TPoint(1.0, 0));
-    ts2.add(new TPoint(0.0, 1));
+    double[] ts2 = { 1.0, 0.0 };
 
     TimeseriesInstance B = new TimeseriesInstance(ts2);
 
-    Timeseries ts3 = new Timeseries();
-    ts3.add(new TPoint(0.0, 0));
-    ts3.add(new TPoint(0.0, 1));
+    double[] ts3 = { 0.0, 0.0 };
 
     A.setComparableReferencePoint(ts3);
     B.setComparableReferencePoint(ts3);
@@ -111,21 +81,15 @@ public class TestTimeseriesInstance {
 
     // System.out.println("\n\n------ testCompareTo() 1 --------");
 
-    Timeseries ts1 = new Timeseries();
-    ts1.add(new TPoint(1.0, 0));
-    ts1.add(new TPoint(1.0, 1));
+    double[] ts1 = { 1.0, 1.0 };
 
     TimeseriesInstance A = new TimeseriesInstance(ts1);
 
-    Timeseries ts2 = new Timeseries();
-    ts2.add(new TPoint(0.0, 0));
-    ts2.add(new TPoint(0.0, 1));
+    double[] ts2 = { 0.0, 0.0 };
 
     TimeseriesInstance B = new TimeseriesInstance(ts2);
 
-    Timeseries ts3 = new Timeseries();
-    ts3.add(new TPoint(0.0, 0));
-    ts3.add(new TPoint(0.0, 1));
+    double[] ts3 = { 0.0, 0.0 };
 
     A.setComparableReferencePoint(ts3);
     B.setComparableReferencePoint(ts3);

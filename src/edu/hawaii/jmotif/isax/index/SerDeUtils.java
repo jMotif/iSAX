@@ -1,7 +1,5 @@
 package edu.hawaii.jmotif.isax.index;
 
-import edu.hawaii.jmotif.timeseries.Timeseries;
-
 /**
  * 
  * A set of static methods used for SerDe related processes.
@@ -50,9 +48,9 @@ public class SerDeUtils {
     // return b;
   }
 
-  public static int calcBytesForTS(Timeseries ts) {
+  public static int calcBytesForTS(double[] ts) {
 
-    return 4 + (ts.size() * 8);
+    return 4 + (ts.length * 8);
 
   }
 
